@@ -9,6 +9,7 @@ test('Submitting the form', async ({ page }) => {
         subjectInputField: '#subject',
         descriptionInputField: '#description',
         submitButton: '#submitContact',
+        textSendingMessage: 'div.col-sm-5 > div > h2'
     };
 
     await page.goto('https://automationintesting.online/');
@@ -19,4 +20,7 @@ test('Submitting the form', async ({ page }) => {
     await page.fill(selectors.subjectInputField, 'TestDonteco');
     await page.fill(selectors.descriptionInputField, 'Positive test for company submission form "Donteco" ');
     await page.click(selectors.submitButton);
+
+    const message = await page.locator(selectors.textSendingMessage);
+    await expect(message).toHaveText('Thanks for getting in touch TestDonteco!');
 });
